@@ -8,10 +8,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/bundle', (req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text/html',
-        'Link': '<http://localhost:8080/bundle.js>; rel="fragment-script"'
+        'Link': '<https://marc-service.herokuapp.com/bundle.js>; rel="fragment-script"'
     });
     res.end('');
 });
-app.listen(8080, () => {
-  console.log('SPA Fragment Server started at 8080')
+app.listen(process.env.PORT || 8080, () => {
+  console.log(`Service Server started at ${process.env.PORT}`);
 })
