@@ -8,7 +8,7 @@ class Navbar extends React.Component {
 
     render() {
         return (
-            <h1>WOWWWW</h1>
+            <h1>So this should update</h1>
         );
     }
 
