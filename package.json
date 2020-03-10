@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Etsyocalypse/Marc-service#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "prop-types": "^15.6.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
