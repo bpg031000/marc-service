@@ -1,0 +1,51 @@
+[
+    {
+      "_id": 0,
+      "itemName": "Throwing Axe",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": "DoomsDayPrep"
+    },
+    {
+      "_id": 1,
+      "itemName": "Folding Knife",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": "DoomsDayPrep"
+    },
+    {
+      "_id": 2,
+      "itemName": "Pry Bar",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": "DoomsDayPrep"
+    },
+    {
+      "_id": 3,
+      "itemName": "Zap Blast Knuckles",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": "DoomsDayPrep"
+    },
+    {
+      "_id": 4,
+      "itemName": "Gas Mask",
+      "categoryId": 1,
+      "categoryName": "Equipment",
+      "storeName": "DoomsDayPrep"
+    },
+    {
+      "_id": 5,
+      "itemName": "Crossbow",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": ""
+    },
+    {
+      "_id": 6,
+      "itemName": "Barbed Wire Baseball Bat",
+      "categoryId": 0,
+      "categoryName": "Weapons & Tools",
+      "storeName": ""
+    }
+   ]
