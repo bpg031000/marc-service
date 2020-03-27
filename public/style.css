@@ -83,6 +83,10 @@
     font-size: 13px;
 }
 
+.categories-bar .col {
+    text-align: center;
+}
+
 .container-navigation {
     width: 100%;
     padding-left: 36px;

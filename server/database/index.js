@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost:27017/etsysearch', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://mongo:27017/etsysearch', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const searchResultSchema = new Schema({
     _id: Number,
@@ -41,11 +41,15 @@ const IMPORT_TEST_DATA = false;
 const importTestData = async () => {
   await SearchResult.deleteMany({}).exec();
   for (entry of testData) {
-    let id = entry._id;
+    if (entry.itemName === null || entry.itemName === "") {
+      continue;
+    }
+    let id = entry.itemId;
     let searchRequest = new SearchResult();
-    searchRequest._id = entry._id;
+    searchRequest._id = id;
     searchRequest.itemName = entry.itemName;
     searchRequest.searchableName = entry.itemName.toLowerCase();
+    searchRequest.description = entry.description;
     searchRequest.save(() => {
       console.log(`Saved: ${id}`);
     });

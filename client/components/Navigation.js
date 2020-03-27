@@ -1,6 +1,7 @@
 import React from 'react';
 import CategoryBar from './CategoryBar';
 import $ from 'jquery';
+import Server from '../ServerInfo';
 
 export default class Navigation extends React.Component {
 
@@ -13,9 +14,10 @@ export default class Navigation extends React.Component {
             searchResults: [],
             showSearchDropdown: false,
         }
-        this.navigateEvent = new Event("onNavigate", { bubbles: true });
-        document.addEventListener('onNavigate', () => {
-            console.log("change pages");
+        document.addEventListener('onNavigate', ({id}) => {
+            console.log("change pages to: ", id);
+            //change view based off of id
+            //setState to render new item
         });
         this.onChangeSearch = this.onChangeSearch.bind(this);
         this.onLeaveSearch = this.onLeaveSearch.bind(this);
@@ -27,7 +29,7 @@ export default class Navigation extends React.Component {
 
     componentDidMount() {
         $.ajax({
-            url: "/popular",
+            url: Server.serverUrl + "/popular",
             method: "GET",
             success: (popular) => {
                 this.setState({ popularItems: popular });
@@ -40,7 +42,7 @@ export default class Navigation extends React.Component {
         this.setState({ searchInput: value });
         $("#search-dropdown").addClass('show');
         $.ajax({
-            url: "/search",
+            url: Server.serverUrl + "/search",
             method: "POST",
             data: { query: value },
             success: (results) => {
@@ -77,7 +79,9 @@ export default class Navigation extends React.Component {
             recent.push(id);
             return { recentlyViewed: recent };
         });
-        event.target.dispatchEvent(this.navigateEvent);
+        let navigateEvent = new Event("onNavigate", { bubbles: true});
+        navigateEvent.id = id;
+        event.target.dispatchEvent(navigateEvent);
         $("#search-dropdown").removeClass('show');
     }
 
@@ -89,7 +93,7 @@ export default class Navigation extends React.Component {
     render() {
         return (
             <div className="container-navigation max-width">
-                <div className="row d-flex align-items-center">
+                <div className="row d-flex align-items-center pb-2">
                     <div className="col-md-1"><img src="https://www.stickpng.com/assets/images/5847f395cef1014c0b5e487f.png" className="img-fluid" alt="Logo" /></div>
                     <div className="col-md-9">
                         <div className="input-group input-group-lg navigation-search-group">
@@ -107,7 +111,7 @@ export default class Navigation extends React.Component {
                                 );
                             })] : this.state.searchResults.map((item, index) => {
                                 return (
-                                    <button className="dropdown-item" type="button" onClick={(e) => this.onNavigateTo(e, item.id)} key={index}>{item.name}</button>
+                                    <button className="dropdown-item" type="button" onClick={(e) => this.onNavigateTo(e, item.id)} key={index}><strong>{item.name.substring(0, this.state.searchInput.length)}</strong>{item.name.slice(this.state.searchInput.length)}</button>
                                 );
                             })}
                             {(this.isShowingPopular && this.state.recentlyViewed.length > 0) && [<h5 className="dropdown-title" key="recentTitle"><strong>Recently viewed</strong></h5>, <div className="row" key="recentRow">
