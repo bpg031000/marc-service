@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 mongoose.connect('mongodb://mongo:27017/etsysearch', {useNewUrlParser: true, useUnifiedTopology: true});
 
+
 const searchResultSchema = new Schema({
     _id: Number,
     itemName: String,
