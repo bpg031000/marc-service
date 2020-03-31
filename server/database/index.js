@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect('mongodb://mongo:27017/etsysearch', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://marcservice:7cAOnnq1JGw0LTZn@marcservice-xzpkb.gcp.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true}).catch((e) => {
+  console.log("Mongo got error: ", e)
+});
 
 
 const searchResultSchema = new Schema({
     _id: Number,
     itemName: String,
     searchableName: String, //lowercase version of itemname
+    thumbnail: String,
   });
 
 const SearchResult = mongoose.model('SearchResult', searchResultSchema);
@@ -15,7 +18,7 @@ const SearchResult = mongoose.model('SearchResult', searchResultSchema);
 const getRandom = async (callback) => {
   try {
     const results = await SearchResult.aggregate([{ $sample: {size: 6} }]).exec();
-    callback(null, results.map((doc) => ({id: doc._id, name: doc.itemName})));
+    callback(null, results.map((doc) => ({id: doc._id, name: doc.itemName, image: doc.thumbnail})));
   }catch(e) {
     callback(e);
   }
@@ -24,7 +27,7 @@ const getRandom = async (callback) => {
 const getSearchResult = async (query, callback) => {
     try {
       const results = await SearchResult.find({searchableName: {$regex: `^${query.toLowerCase()}`}}).limit(11).exec();
-      callback(null, results.map((doc) => ({id: doc._id, name: doc.itemName})))
+      callback(null, results.map((doc) => ({id: doc._id, name: doc.itemName, image: doc.thumbnail})))
     }catch(e) {
       callback(e);
     }
@@ -51,6 +54,7 @@ const importTestData = async () => {
     searchRequest.itemName = entry.itemName;
     searchRequest.searchableName = entry.itemName.toLowerCase();
     searchRequest.description = entry.description;
+    searchRequest.thumbnail = entry.relatedItemImage;
     searchRequest.save(() => {
       console.log(`Saved: ${id}`);
     });

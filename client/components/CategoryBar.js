@@ -20,9 +20,7 @@ export default class CategoryBar extends React.Component {
                             },
                             {
                                 name: "Desert Eagle",
-                                subcategories: {
-
-                                }
+                                subcategories: []
                             }
                         ]
                     },
@@ -37,9 +35,7 @@ export default class CategoryBar extends React.Component {
                             },
                             {
                                 name: "Hair Accessories",
-                                subcategories: {
-
-                                }
+                                subcategories: []
                             }
                         ]
                     },
@@ -52,9 +48,7 @@ export default class CategoryBar extends React.Component {
                                 ]
                             },
                             "Hair Accessories": {
-                                subcategories: {
-
-                                }
+                                subcategories: []
                             }
                         }
                     },
@@ -81,19 +75,32 @@ export default class CategoryBar extends React.Component {
                 ],
                 "1": [
                     {
-                        name: "Test",
+                        name: "Shirts",
                         subCategories: [
                             {
-                                name: "Glock",
-                                subcategories: [
-                                    "Beanies & Winter Hats"
-                                ]
+                                name: "T-Shirts",
+                                subcategories: []
                             },
                             {
-                                name: "Desert Eagle",
-                                subcategories: {
-
-                                }
+                                name: "Long Sleeve",
+                                subcategories: []
+                            }
+                        ]
+                    },
+                    {
+                        name: "Hats",
+                        subCategories: [
+                            {
+                                name: "Beanies",
+                                subcategories: []
+                            },
+                            {
+                                name: "Face Masks",
+                                subcategories: []
+                            },
+                            {
+                                name: "Cowboy Hats",
+                                subcategories: []
                             }
                         ]
                     },
@@ -115,6 +122,7 @@ export default class CategoryBar extends React.Component {
         this.onLeaveCategory = this.onLeaveCategory.bind(this);
         this.onHoverDropdown = this.onHoverDropdown.bind(this);
         this.onLeaveDropdown = this.onLeaveDropdown.bind(this);
+        this.onHoverSubcategory = this.onHoverSubcategory.bind(this);
     }
 
     componentDidCatch() {
@@ -129,8 +137,12 @@ export default class CategoryBar extends React.Component {
         $("#category-dropdown").addClass("show");
     }
 
+    onHoverSubcategory(subCategory) {
+        this.setState({currentSubCategory: subCategory});
+    }
+
     onLeaveCategory(event) {
-        this.hideTimeout = setTimeout(() => this.setState({ showDropdown: false }), 200);
+        this.hideTimeout = setTimeout(() => this.setState({ showDropdown: false, currentSubCategory: null }), 200);
     }
 
     onHoverDropdown(event) {
@@ -147,11 +159,6 @@ export default class CategoryBar extends React.Component {
 
 
     render() {
-        console.log(this.state.currentCategory);
-        console.log(this.state.categories);
-        if (this.state.currentCategory !== null) {
-            console.log(Object.keys(this.state.categories[this.state.currentCategory]));
-        }
         return (
             <div className="max-width">
                 <div className="row categories-bar">
@@ -168,10 +175,12 @@ export default class CategoryBar extends React.Component {
                     <div className="row">
                         <div className="col-md-4">
                             {this.state.currentCategory !== null ? this.state.categories[this.state.currentCategory].map((cat, index) => {
-                                return <button className="dropdown-item" type="button" key={index}>{cat.name}</button>
+                                return <button className="dropdown-item" type="button" key={index} onMouseEnter={() => this.onHoverSubcategory(index)}>{cat.name}</button>
                             }) : null}
                         </div>
-                        <div className="col-md-8"></div>
+                        <div className="col-md-8">
+                            
+                        </div>
                     </div>
                 </div>
             </div>

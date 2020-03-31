@@ -56,7 +56,7 @@ export default class Footer extends React.Component {
                                             </g></svg>
 
                                     </span>
-                                    <span>United States   |   English (US)   |   $ (USD)</span>
+                                    <span className="text-white">United States   |   English (US)   |   $ (USD)</span>
                                 </button>
                             </div>
                             <div className="col text-right text-white">
