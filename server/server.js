@@ -20,4 +20,4 @@ app.get('/popular', SearchController.getPopular);
 app.post('/search', SearchController.getSearchResults);
 
 
-app.listen(8080, () => console.log("Service is running on port: 8080"));
+app.listen(8081, () => console.log("Service is running on port: 8081"));
