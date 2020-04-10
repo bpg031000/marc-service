@@ -288,3 +288,27 @@
     height: 24px;
     width: 24px;
 }
+
+#cart-count{
+    top: -10px;
+    right: 37px;
+    position: absolute;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 17px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border: 2px solid white;
+    background: #FAA077;
+    border-radius: 15px;
+    display: inline-block;
+    word-break: break-word;
+    line-height: 1;
+    z-index: 10 !important;
+    box-sizing: border-box;
+    margin: 0;
+    color: #595959;
+    cursor: pointer;
+}

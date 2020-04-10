@@ -11,7 +11,8 @@ export default class Navigation extends React.Component {
       recentlyViewed: [],
       popularItems: [],
       searchResults: [],
-      showSearchDropdown: false
+      showSearchDropdown: false,
+      cartItems: []
     };
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onLeaveSearch = this.onLeaveSearch.bind(this);
@@ -19,6 +20,13 @@ export default class Navigation extends React.Component {
     this.onNavigateTo = this.onNavigateTo.bind(this);
 
     this.hideTimeout = null;
+
+    document.addEventListener('addToCart', (order)=>{
+      console.log('add to cart clicked');
+      this.setState({
+        cartItems: [...this.state.cartItems, order]
+      })
+    });
   }
 
   componentDidMount() {
@@ -31,6 +39,8 @@ export default class Navigation extends React.Component {
     });
   }
 
+
+  
   onChangeSearch(event) {
     const value = event.target.value;
     this.setState({ searchInput: value });
@@ -89,6 +99,8 @@ export default class Navigation extends React.Component {
   }
 
   render() {
+
+      debugger;
     return (
       <div className="container-navigation max-width">
         <div className="row d-flex align-items-center pb-2">
@@ -189,6 +201,16 @@ export default class Navigation extends React.Component {
           </div>
           <div className="col-md-2 d-flex justify-content-between pr-5">
           <span className="d-inline-block mr-3">Sign in</span>
+          <span>
+          {
+            (this.state.cartItems.length > 0) &&
+                (
+                <span className="wt-badge wt-badge--notification-03 wt-badge--small wt-badge--outset-top-right wt-z-index-1 ge-cart-badge" id="cart-count" aria-hidden="true">
+                {this.state.cartItems.length}
+                </span>
+                )
+          }
+          </span>
           <span className="d-inline-block cartIcon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="2"></circle><circle cx="16" cy="20" r="2"></circle><path d="M21,5H5.665L4.978,1.79A1,1,0,0,0,4,1H1A1,1,0,0,0,1,3H3.191L6.022,16.21a0.962,0.962,0,0,0,.064.159,1.015,1.015,0,0,0,.063.155,0.978,0.978,0,0,0,.133.153,1.006,1.006,0,0,0,.088.1,1,1,0,0,0,.185.105,0.975,0.975,0,0,0,.107.06A0.994,0.994,0,0,0,7,17H18a1,1,0,0,0,.958-0.713l3-10A1,1,0,0,0,21,5Zm-2.244,5H16V7h3.656ZM7.819,15l-0.6-3H9v3H7.819ZM11,12h3v3H11V12Zm0-2V7h3v3H11ZM9,7v3H6.82L6.22,7H9Zm8.256,8H16V12h2.156Z"></path></svg></span>
           </div>
         </div>
