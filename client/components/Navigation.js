@@ -100,7 +100,6 @@ export default class Navigation extends React.Component {
 
   render() {
 
-      debugger;
     return (
       <div className="container-navigation max-width">
         <div className="row d-flex align-items-center pb-2">
